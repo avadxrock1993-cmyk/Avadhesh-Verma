@@ -140,7 +140,7 @@ const DietForm: React.FC<DietFormProps> = ({ onSubmit, onCancel }) => {
                 checked={formData.preference === DietPreference.VEG} onChange={handleChange}
                 className="w-6 h-6 text-red-600 focus:ring-red-500 accent-red-600"
               />
-              <span className="ml-3 text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">Vegetarian 🥦</span>
+              <span className="ml-3 text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">Vegetarian</span>
             </label>
             <label className="flex items-center cursor-pointer group p-2">
               <input 
@@ -148,7 +148,7 @@ const DietForm: React.FC<DietFormProps> = ({ onSubmit, onCancel }) => {
                 checked={formData.preference === DietPreference.NON_VEG} onChange={handleChange}
                 className="w-6 h-6 text-red-600 focus:ring-red-500 accent-red-600"
               />
-              <span className="ml-3 text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">Non-Veg 🍗</span>
+              <span className="ml-3 text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">Non-Veg</span>
             </label>
             <label className="flex items-center cursor-pointer group p-2">
               <input 
@@ -156,7 +156,7 @@ const DietForm: React.FC<DietFormProps> = ({ onSubmit, onCancel }) => {
                 checked={formData.preference === DietPreference.BOTH} onChange={handleChange}
                 className="w-6 h-6 text-red-600 focus:ring-red-500 accent-red-600"
               />
-              <span className="ml-3 text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">Both 🥗+🍖</span>
+              <span className="ml-3 text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">Both</span>
             </label>
           </div>
         </div>

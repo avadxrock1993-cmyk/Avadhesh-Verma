@@ -40,6 +40,8 @@ const SYSTEM_INSTRUCTION = `
            </tbody>
          </table>
        </div>
+
+  5. CLEAN & MINIMAL: Do NOT use emojis, icons, or ASCII art in the text. Keep the output professional and text-only.
 `;
 
 export const generateDietPlan = async (data: DietFormData, skippedMeals: string[] = []): Promise<string> => {

@@ -87,16 +87,11 @@ const App: React.FC = () => {
           {/* Diet Card */}
           <button 
             onClick={() => setCurrentView('diet')}
-            className="group relative bg-white border-2 border-red-100 hover:border-red-600 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 text-left flex flex-col h-64 justify-between overflow-hidden"
+            className="group relative bg-white border-2 border-red-100 hover:border-red-600 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 text-left flex flex-col h-48 justify-center items-center gap-4"
           >
-            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-32 w-32 text-red-600" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
-              </svg>
-            </div>
             <div>
-              <h3 className="text-3xl font-extrabold text-gray-900 group-hover:text-red-600 transition-colors">DIET PLAN</h3>
-              <p className="mt-2 text-gray-500 font-medium">Nutrition tailored to your taste.</p>
+              <h3 className="text-3xl font-extrabold text-gray-900 group-hover:text-red-600 transition-colors text-center">DIET PLAN</h3>
+              <p className="mt-2 text-gray-500 font-medium text-center">Nutrition tailored to your taste.</p>
             </div>
             <div className="flex items-center text-red-600 font-bold">
               <span>Create Plan</span>
@@ -109,16 +104,11 @@ const App: React.FC = () => {
           {/* Workout Card */}
           <button 
             onClick={() => setCurrentView('workout')}
-            className="group relative bg-white border-2 border-red-100 hover:border-red-600 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 text-left flex flex-col h-64 justify-between overflow-hidden"
+            className="group relative bg-white border-2 border-red-100 hover:border-red-600 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 text-left flex flex-col h-48 justify-center items-center gap-4"
           >
-             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-32 w-32 text-red-600" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            </div>
             <div>
-              <h3 className="text-3xl font-extrabold text-gray-900 group-hover:text-red-600 transition-colors">WORKOUT PLAN</h3>
-              <p className="mt-2 text-gray-500 font-medium">Exercises designed for your goals.</p>
+              <h3 className="text-3xl font-extrabold text-gray-900 group-hover:text-red-600 transition-colors text-center">WORKOUT PLAN</h3>
+              <p className="mt-2 text-gray-500 font-medium text-center">Exercises designed for your goals.</p>
             </div>
             <div className="flex items-center text-red-600 font-bold">
               <span>Create Plan</span>
