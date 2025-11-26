@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { WorkoutFormData } from '../types';
+import { WorkoutFormData, ExperienceLevel, WorkoutSplit } from '../types';
 
 interface WorkoutFormProps {
   onSubmit: (data: WorkoutFormData) => void;
@@ -11,7 +11,9 @@ const WorkoutForm: React.FC<WorkoutFormProps> = ({ onSubmit, onCancel }) => {
     name: '',
     daysPerWeek: '4',
     durationPerDay: '60',
-    focus: 'Mix'
+    focus: 'Mix',
+    experience: ExperienceLevel.BEGINNER,
+    split: WorkoutSplit.STANDARD
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -38,28 +40,66 @@ const WorkoutForm: React.FC<WorkoutFormProps> = ({ onSubmit, onCancel }) => {
           />
         </div>
 
-        {/* Days Per Week */}
+        {/* Experience Level */}
         <div>
-          <label className="block text-lg font-bold text-gray-800 mb-2">How many days do you workout per week?</label>
-          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg border">
-            <input 
-              type="range" name="daysPerWeek" min="1" max="7" step="1"
-              value={formData.daysPerWeek} onChange={handleChange}
-              className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-red-600"
-            />
-            <span className="ml-4 text-2xl font-bold text-red-600 w-12 text-center">{formData.daysPerWeek}</span>
+          <label className="block text-lg font-bold text-gray-800 mb-2">Experience Level</label>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+             {Object.values(ExperienceLevel).map((level) => (
+                <label key={level} className={`
+                  flex items-center justify-center p-3 rounded-lg border-2 cursor-pointer transition-all text-center text-sm font-bold
+                  ${formData.experience === level ? 'border-red-600 bg-red-50 text-red-700' : 'border-gray-200 hover:border-red-200 text-gray-600'}
+                `}>
+                  <input 
+                    type="radio" name="experience" value={level} 
+                    checked={formData.experience === level} onChange={handleChange}
+                    className="hidden"
+                  />
+                  {level}
+                </label>
+             ))}
           </div>
         </div>
 
-        {/* Duration */}
-        <div>
-          <label className="block text-lg font-bold text-gray-800 mb-2">Session Duration (Minutes)</label>
-          <input 
-            type="number" name="durationPerDay" 
-            value={formData.durationPerDay} onChange={handleChange}
-            className="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-red-500 focus:outline-none text-lg"
-            placeholder="e.g. 45"
-          />
+        {/* Split Selection (Only if Advanced or Intermediate with Strength Focus) */}
+        {(formData.experience === ExperienceLevel.ADVANCED || (formData.experience === ExperienceLevel.INTERMEDIATE && formData.focus !== 'Cardio')) && (
+          <div className="bg-red-50 p-4 rounded-lg border border-red-100 animate-fadeIn">
+            <label className="block text-lg font-bold text-red-800 mb-2">Choose Your Workout Split</label>
+            <select 
+              name="split" value={formData.split} onChange={handleChange}
+              className="w-full p-3 border-2 border-red-200 rounded-lg focus:border-red-500 focus:outline-none bg-white"
+            >
+              <option value={WorkoutSplit.DOUBLE_MUSCLE}>Double Muscle (2 Body Parts)</option>
+              <option value={WorkoutSplit.PPL}>Push Pull Legs (PPL)</option>
+              <option value={WorkoutSplit.BRO_SPLIT}>Bro Split (1 Body Part)</option>
+              <option value={WorkoutSplit.FULL_BODY}>Full Body</option>
+            </select>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Days Per Week */}
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-2">Days per Week</label>
+              <div className="flex justify-between items-center bg-gray-50 p-3 rounded-lg border">
+                <input 
+                  type="range" name="daysPerWeek" min="1" max="7" step="1"
+                  value={formData.daysPerWeek} onChange={handleChange}
+                  className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-red-600"
+                />
+                <span className="ml-4 text-xl font-bold text-red-600 w-8 text-center">{formData.daysPerWeek}</span>
+              </div>
+            </div>
+
+            {/* Duration */}
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-2">Duration (Mins)</label>
+              <input 
+                type="number" name="durationPerDay" 
+                value={formData.durationPerDay} onChange={handleChange}
+                className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-red-500 focus:outline-none"
+                placeholder="60"
+              />
+            </div>
         </div>
 
         {/* Focus */}

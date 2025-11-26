@@ -17,6 +17,20 @@ export enum DietGoal {
   FAT_LOSS = 'Fat Loss'
 }
 
+export enum ExperienceLevel {
+  BEGINNER = 'Beginner',
+  INTERMEDIATE = 'Intermediate',
+  ADVANCED = 'Advanced'
+}
+
+export enum WorkoutSplit {
+  STANDARD = 'Standard (Mix)',
+  DOUBLE_MUSCLE = 'Double Muscle (2 Body Parts/Day)',
+  PPL = 'Push Pull Legs',
+  BRO_SPLIT = 'Bro Split (1 Body Part/Day)',
+  FULL_BODY = 'Full Body'
+}
+
 export interface DietFormData {
   name: string;
   age: string;
@@ -37,6 +51,8 @@ export interface WorkoutFormData {
   daysPerWeek: string;
   durationPerDay: string;
   focus: 'Cardio' | 'Strength' | 'Mix';
+  experience: ExperienceLevel;
+  split?: WorkoutSplit;
 }
 
 export interface PlanResponse {

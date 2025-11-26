@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import { DietFormData, WorkoutFormData } from "../types";
+import { DietFormData, WorkoutFormData, ExperienceLevel } from "../types";
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
@@ -95,6 +95,12 @@ export const generateDietPlan = async (data: DietFormData, skippedMeals: string[
 };
 
 export const generateWorkoutPlan = async (data: WorkoutFormData): Promise<string> => {
+  const isAdvanced = data.experience === ExperienceLevel.ADVANCED || data.experience === ExperienceLevel.INTERMEDIATE;
+  
+  const splitInstruction = isAdvanced && data.split
+    ? `The user is ${data.experience} and explicitly requested a "${data.split}" split.` 
+    : `The user is a ${data.experience}. Suggest the best safe split for them (e.g., Full Body or Upper/Lower).`;
+
   const prompt = `
     ${SYSTEM_INSTRUCTION}
 
@@ -102,14 +108,20 @@ export const generateWorkoutPlan = async (data: WorkoutFormData): Promise<string
 
     CLIENT PROFILE:
     - Name: ${data.name} (Address the client by name in the plan)
+    - Experience Level: ${data.experience}
     - Days available: ${data.daysPerWeek} days/week
     - Session duration: ${data.durationPerDay} minutes
     - Goal/Focus: ${data.focus}
+    
+    SPLIT STRATEGY:
+    ${splitInstruction}
 
     REQUIREMENTS:
     1. Create a Weekly Schedule Table (Day, Muscle Group, Focus).
     2. For each workout day, provide a detailed Table (Exercise, Sets, Reps, Rest).
     3. Include Warm-up and Cool-down routines.
+    4. Since the user is ${data.experience}, adjust volume and intensity accordingly.
+    5. If Advanced/Double Muscle, ensure high volume. If Beginner, focus on form and compound movements.
   `;
 
   try {
