@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from './components/Header';
 import DietForm from './components/DietForm';
@@ -46,6 +47,11 @@ const App: React.FC = () => {
     setIsLoading(false);
   };
 
+  const handleCrossNavigate = (target: 'diet' | 'workout') => {
+    setGeneratedPlan(null);
+    setCurrentView(target);
+  };
+
   // Render Logic
   const renderContent = () => {
     if (isLoading) {
@@ -58,7 +64,9 @@ const App: React.FC = () => {
           content={generatedPlan} 
           onReset={reset} 
           title={currentView === 'diet' ? 'Your Personalized Diet Plan' : 'Your Personalized Workout Plan'}
-          onRegenerate={currentView === 'diet' ? handleDietRegenerate : undefined} 
+          onRegenerate={currentView === 'diet' ? handleDietRegenerate : undefined}
+          currentPlanType={currentView === 'diet' ? 'diet' : 'workout'}
+          onCrossNavigate={handleCrossNavigate}
         />
       );
     }

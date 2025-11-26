@@ -1,3 +1,4 @@
+
 import { GoogleGenAI } from "@google/genai";
 import { DietFormData, WorkoutFormData, ExperienceLevel } from "../types";
 
@@ -65,6 +66,7 @@ export const generateDietPlan = async (data: DietFormData, skippedMeals: string[
     
     CLIENT PROFILE:
     - Name: ${data.name} (Address the client by name in the plan)
+    - Gender: ${data.gender}
     - Age: ${data.age}
     - Weight: ${data.weight} kg
     - Height: ${data.height}
@@ -110,6 +112,7 @@ export const generateWorkoutPlan = async (data: WorkoutFormData): Promise<string
 
     CLIENT PROFILE:
     - Name: ${data.name} (Address the client by name in the plan)
+    - Gender: ${data.gender}
     - Experience Level: ${data.experience}
     - Days available: ${data.daysPerWeek} days/week
     - Session duration: ${data.durationPerDay} minutes

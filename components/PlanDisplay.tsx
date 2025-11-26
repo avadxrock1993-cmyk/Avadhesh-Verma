@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 
 interface PlanDisplayProps {
@@ -5,9 +6,11 @@ interface PlanDisplayProps {
   onReset: () => void;
   title: string;
   onRegenerate?: (skippedMeals: string[]) => void;
+  currentPlanType: 'diet' | 'workout';
+  onCrossNavigate: (target: 'diet' | 'workout') => void;
 }
 
-const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, title, onRegenerate }) => {
+const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, title, onRegenerate, currentPlanType, onCrossNavigate }) => {
   const [skippedMeals, setSkippedMeals] = useState<string[]>([]);
   const [isDownloading, setIsDownloading] = useState(false);
   
@@ -93,8 +96,16 @@ const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, title, onRe
         {/* Company Header - Always visible in the plan view/pdf */}
         <div className="text-center border-b-4 border-red-600 pb-6 mb-8">
           <h1 className="text-3xl md:text-4xl font-extrabold text-red-700 uppercase tracking-tighter">THE GYM CKBT</h1>
-          <div className="mt-2 text-gray-600 font-medium space-y-1 text-sm md:text-base">
-            <p>📍 Behind Sarkari Hospital, Main Road, CKBT BSP</p>
+          <div className="mt-2 text-gray-600 font-medium space-y-1 text-sm md:text-base flex flex-col items-center">
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=2442+WWH,+Unnamed+Road,+Chakarbhatha,+Chhattisgarh+495220"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group hover:text-red-700 transition-colors cursor-pointer flex items-center gap-1"
+            >
+              <span>📍</span>
+              <span className="group-hover:underline">Behind Sarkari Hospital, Main Road, CKBT BSP</span>
+            </a>
             <p>📞 Contact: 7000142415</p>
           </div>
         </div>
@@ -111,8 +122,22 @@ const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, title, onRe
         </div>
       </div>
 
+      {/* CROSS NAVIGATION BUTTON (Placed as requested) */}
+      <div className="bg-red-50 p-6 flex flex-col items-center gap-3 no-print border-t border-gray-100">
+         <p className="text-red-800 font-bold text-sm uppercase tracking-wide">
+           {currentPlanType === 'diet' ? 'Complete your routine:' : 'Optimize your results:'}
+         </p>
+         <button 
+           onClick={() => onCrossNavigate(currentPlanType === 'diet' ? 'workout' : 'diet')}
+           className="w-full sm:w-auto bg-white text-red-600 border-2 border-red-600 px-8 py-3 rounded-full font-extrabold text-lg hover:bg-red-600 hover:text-white transition-all transform hover:-translate-y-1 shadow-md flex items-center justify-center gap-2"
+         >
+           {currentPlanType === 'diet' ? '🏋️ Generate Workout Plan' : '🥗 Generate Diet Plan'}
+           <span>→</span>
+         </button>
+      </div>
+
       {/* ACTION BUTTONS: Download PDF & Share (Below Content) */}
-      <div className="bg-white p-6 flex flex-col items-center gap-4 border-t border-gray-100 no-print">
+      <div className="bg-white p-6 flex flex-col items-center gap-4 no-print">
           <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
             <button 
               onClick={handleDownload}
@@ -186,7 +211,7 @@ const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, title, onRe
       <div className="p-6 bg-gray-50 border-t flex justify-center no-print rounded-b-lg">
          <button 
           onClick={onReset}
-          className="w-full md:w-auto bg-red-600 text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-red-700 transition-transform transform active:scale-95 shadow-lg"
+          className="w-full md:w-auto bg-gray-800 text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-black transition-transform transform active:scale-95 shadow-lg"
         >
           Done
         </button>

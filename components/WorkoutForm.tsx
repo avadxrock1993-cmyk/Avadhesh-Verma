@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { WorkoutFormData, ExperienceLevel, WorkoutSplit } from '../types';
+import { WorkoutFormData, ExperienceLevel, WorkoutSplit, Gender } from '../types';
 
 interface WorkoutFormProps {
   onSubmit: (data: WorkoutFormData) => void;
@@ -9,6 +10,7 @@ interface WorkoutFormProps {
 const WorkoutForm: React.FC<WorkoutFormProps> = ({ onSubmit, onCancel }) => {
   const [formData, setFormData] = useState<WorkoutFormData>({
     name: '',
+    gender: Gender.MALE,
     daysPerWeek: '4',
     durationPerDay: '60',
     focus: 'Mix',
@@ -38,6 +40,27 @@ const WorkoutForm: React.FC<WorkoutFormProps> = ({ onSubmit, onCancel }) => {
             required type="text" name="name" value={formData.name} onChange={handleChange}
             className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-red-500 focus:outline-none transition-colors" placeholder="e.g. Rahul Kumar"
           />
+        </div>
+
+        {/* Gender Selection */}
+        <div>
+          <label className="block text-sm font-bold text-gray-700 mb-2">Gender</label>
+          <div className="flex gap-4">
+            <label className={`
+              flex-1 flex items-center justify-center p-3 rounded-lg border-2 cursor-pointer transition-all font-bold
+              ${formData.gender === Gender.MALE ? 'border-red-600 bg-red-50 text-red-700' : 'border-gray-200 text-gray-600'}
+            `}>
+              <input type="radio" name="gender" value={Gender.MALE} checked={formData.gender === Gender.MALE} onChange={handleChange} className="hidden" />
+              Male
+            </label>
+            <label className={`
+              flex-1 flex items-center justify-center p-3 rounded-lg border-2 cursor-pointer transition-all font-bold
+              ${formData.gender === Gender.FEMALE ? 'border-red-600 bg-red-50 text-red-700' : 'border-gray-200 text-gray-600'}
+            `}>
+              <input type="radio" name="gender" value={Gender.FEMALE} checked={formData.gender === Gender.FEMALE} onChange={handleChange} className="hidden" />
+              Female
+            </label>
+          </div>
         </div>
 
         {/* Experience Level */}

@@ -1,6 +1,12 @@
+
 export enum PlanType {
   DIET = 'DIET',
   WORKOUT = 'WORKOUT'
+}
+
+export enum Gender {
+  MALE = 'Male',
+  FEMALE = 'Female'
 }
 
 export enum DietPreference {
@@ -33,6 +39,7 @@ export enum WorkoutSplit {
 
 export interface DietFormData {
   name: string;
+  gender: Gender;
   age: string;
   weight: string;
   height: string;
@@ -48,6 +55,7 @@ export interface DietFormData {
 
 export interface WorkoutFormData {
   name: string;
+  gender: Gender;
   daysPerWeek: string;
   durationPerDay: string;
   focus: 'Cardio' | 'Strength' | 'Mix';
